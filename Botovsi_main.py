@@ -44,20 +44,22 @@ def main():
 
     dispather = updater.dispatcher
 
-    handlerbull = MessageHandler(Filters.all, do_echo)
-    handler = CommandHandler('help', do_bulling)
+    handler_help = CommandHandler('help', do_bulling)
     start_handler = CommandHandler('start', do_start)
     stop_handler = CommandHandler('stop', do_stop)
     name = CommandHandler('user', do_user)
+    sticker = CommandHandler('img', do_text)
     some = MessageHandler(Filters.text, do_some)
-    sticker = CommandHandler('sticker', do_text)
+    stick_handler = MessageHandler(Filters.sticker, do_sticker)
+    handlerbull = MessageHandler(Filters.all, do_echo)
 
     dispather.add_handler(start_handler)
-    dispather.add_handler(handler)
-    dispather.add_handler(some)
+    dispather.add_handler(handler_help)
+    dispather.add_handler(name)
+    dispather.add_handler(stick_handler)
     dispather.add_handler(stop_handler)
     dispather.add_handler(sticker)
-    dispather.add_handler(name)
+    dispather.add_handler(some)
     dispather.add_handler(handlerbull)
 
     updater.start_polling()
@@ -70,8 +72,7 @@ def do_echo(update, context):
 
 def do_start(update, context):
 
-    update.message.reply_text(randomizer.choice(hi)
-)
+    update.message.reply_text(randomizer.choice(hi))
 
 
 def do_bulling(update, context):
@@ -101,12 +102,19 @@ def do_some(update: Update, context):
     text = update.message.text
     if text == '1':
         update.message.reply_text('Это 1', reply_markup=ReplyKeyboardRemove())
+        update.message.reply_sticker('CAACAgIAAxkBAAICMWBIqfqjE9LTtegdFU_RK4_3_nuHAAKHAgACV0xhA1W1lvryreC1HgQ')
     elif text == '2':
         update.message.reply_text('Это 2', reply_markup=ReplyKeyboardRemove())
     elif text == '3':
         update.message.reply_text('Это 3', reply_markup=ReplyKeyboardRemove())
     else:
         update.message.reply_text(randomizer.choice(what), reply_markup=ReplyKeyboardRemove())
+
+
+def do_sticker(update: Update, context):
+    sticker_id = update.message.sticker.file_id
+    update.message.reply_sticker(sticker_id)
+
 
 
 main()
