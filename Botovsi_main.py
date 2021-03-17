@@ -1,9 +1,9 @@
 from telegram import Update, ReplyKeyboardMarkup, ReplyKeyboardRemove
 from telegram.ext import Updater, MessageHandler, Filters, CommandHandler
 import random
+import openpyxl
 
-
-TOKEN = '1591047164:AAGPm_L7jDwhNds_vMlEiCfiw0b6xY1s5zU'
+TOKEN = '1591047164:AAEQbYCoBNKtzw7LegNkEpO4UDNxVG3p_TA'
 
 
 what = [
@@ -49,6 +49,7 @@ def main():
     stop_handler = CommandHandler('stop', do_stop)
     name = CommandHandler('user', do_user)
     sticker = CommandHandler('img', do_text)
+    attack = CommandHandler('attack', do_attack)
     some = MessageHandler(Filters.text, do_some)
     stick_handler = MessageHandler(Filters.sticker, do_sticker)
     handlerbull = MessageHandler(Filters.all, do_echo)
@@ -56,6 +57,7 @@ def main():
     dispather.add_handler(start_handler)
     dispather.add_handler(handler_help)
     dispather.add_handler(name)
+    dispather.add_handler(attack)
     dispather.add_handler(stick_handler)
     dispather.add_handler(stop_handler)
     dispather.add_handler(sticker)
@@ -76,8 +78,8 @@ def do_start(update, context):
 
 
 def do_bulling(update, context):
-    keyboard = [['1', '2', '3'],
-                ['4', '5', '6']]
+    keyboard = [['/help', '/user', '/stop'],
+                ['/img']]
     update.message.reply_text(randomizer.choice(helper),
     reply_markup=ReplyKeyboardMarkup(keyboard, one_time_keyboard=True, resize_keyboard=True))
 
@@ -100,13 +102,15 @@ def do_text(update, context):
 
 def do_some(update: Update, context):
     text = update.message.text
-    if text == '1':
-        update.message.reply_text('Это 1', reply_markup=ReplyKeyboardRemove())
-        update.message.reply_sticker('CAACAgIAAxkBAAICMWBIqfqjE9LTtegdFU_RK4_3_nuHAAKHAgACV0xhA1W1lvryreC1HgQ')
-    elif text == '2':
-        update.message.reply_text('Это 2', reply_markup=ReplyKeyboardRemove())
-    elif text == '3':
-        update.message.reply_text('Это 3', reply_markup=ReplyKeyboardRemove())
+    if text == 'Нет':
+        update.message.reply_text('****** ответ', reply_markup=ReplyKeyboardRemove())
+        update.message.reply_sticker('CAACAgIAAxkBAAECEd1gUd5kmaGDSLkdJEidOZwxCp7C_AACGAADoF_dLYLQt9fbwjB_HgQ')
+    elif text == 'Да':
+        update.message.reply_text('Вы использовали команду /user', reply_markup=ReplyKeyboardRemove())
+    elif text == 'Давай не будем':
+        update.message.reply_text('Вы использовали команду /stop', reply_markup=ReplyKeyboardRemove())
+    elif text == 'Хватит':
+        update.message.reply_text('Вы использовали команду /img', reply_markup=ReplyKeyboardRemove())
     else:
         update.message.reply_text(randomizer.choice(what), reply_markup=ReplyKeyboardRemove())
 
@@ -114,6 +118,13 @@ def do_some(update: Update, context):
 def do_sticker(update: Update, context):
     sticker_id = update.message.sticker.file_id
     update.message.reply_sticker(sticker_id)
+
+
+def do_attack(update, context):
+    keyboard = [['Да'], ['Нет']]
+    img = 'https://imbt.ga/TlRYeptk2h'
+    update.message.reply_text(f'Начать атаку?{img}',
+    reply_markup=ReplyKeyboardMarkup(keyboard, one_time_keyboard=True, resize_keyboard=True))
 
 
 
