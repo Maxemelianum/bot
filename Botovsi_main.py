@@ -1,9 +1,14 @@
 from telegram import Update, ReplyKeyboardMarkup, ReplyKeyboardRemove
 from telegram.ext import Updater, MessageHandler, Filters, CommandHandler
+from openpyxl import load_workbook
 import random
-import openpyxl
 
-TOKEN = '1591047164:AAEQbYCoBNKtzw7LegNkEpO4UDNxVG3p_TA'
+
+
+TOKEN = '1591047164:AAGvlzpApFB-u8qpGZYE1YQmKIjL9lotSLs'
+book = load_workbook('DataBaze.xlsx')
+sheet_1 = book['Тишина']
+sticker_page = book['Тишина']
 
 
 what = [
@@ -102,6 +107,15 @@ def do_text(update, context):
 
 def do_some(update: Update, context):
     text = update.message.text
+
+    for row in range(2, sticker_page.max_row + 1):
+        catch_fase = sticker_page.cell(row=row, column=4).value
+        print(text)
+        print(catch_fase)
+        if catch_fase in text:
+            sticker_id = sticker_page.cell(row=row, column=3).value
+            update.message.reply_sticker(sticker_id)
+
     if text == 'Нет':
         update.message.reply_text('****** ответ', reply_markup=ReplyKeyboardRemove())
         update.message.reply_sticker('CAACAgIAAxkBAAECEd1gUd5kmaGDSLkdJEidOZwxCp7C_AACGAADoF_dLYLQt9fbwjB_HgQ')
@@ -125,7 +139,6 @@ def do_attack(update, context):
     img = 'https://imbt.ga/TlRYeptk2h'
     update.message.reply_text(f'Начать атаку?{img}',
     reply_markup=ReplyKeyboardMarkup(keyboard, one_time_keyboard=True, resize_keyboard=True))
-
 
 
 main()
