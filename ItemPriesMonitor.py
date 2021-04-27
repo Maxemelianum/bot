@@ -32,8 +32,8 @@ def do_start(update, context):
 
 def do_help(update, context):
     keyboard = [['1'], ['1']]
-    update.message.reply_text('jr'),
-    ReplyKeyboardMarkup(keyboard)
+    reply_markup = ReplyKeyboardMarkup(keyboard=keyboard, one_time_keyboard=True, resize_keyboard=True)
+    update.message.reply_text('jr', reply_markup=reply_markup)
 
 
 def do_some(update: Update, context):
