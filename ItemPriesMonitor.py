@@ -43,15 +43,20 @@ def do_some(update: Update, context):
     text = update.message.text
 
     if text == 'Поиск Items':
-        update.message.reply_text('****** ответ', reply_markup=ReplyKeyboardRemove())
-        update.message.reply_sticker('CAACAgIAAxkBAAECEd1gUd5kmaGDSLkdJEidOZwxCp7C_AACGAADoF_dLYLQt9fbwjB_HgQ')
+        update.message.reply_text('Поиск Items в Steam'
+                                  '\n1.Для старта введите команду /search .'
+                                  '\n2.Выберите тип предмета (AK-47, P90, FAMAS, Desert Eagle и т.д.).'
+                                  '\n3.Выберите свойство предмета (★, StatTrak, Souvenir, Обычн).'
+                                  '\n4.Выберите скин.'
+                                  '\n5.Вам будет выдана ссылка с лотами этого скина в Steam.'
+                                  '\nИскомого предмета может не быть на ТП, либо вы могли некоректно ввести данные.'
+                                  '\nПопробуйте ввести данные еще раз.', reply_markup=ReplyKeyboardRemove())
     elif text == 'Список недавно просмотренных Items':
-        update.message.reply_text('Вы использовали команду /user'
-                                  '\nспасибо', reply_markup=ReplyKeyboardRemove())
+        update.message.reply_text('Скоро...', reply_markup=ReplyKeyboardRemove())
     elif text == 'Отслеживание стоимости Items':
-        update.message.reply_text('Вы использовали команду /stop', reply_markup=ReplyKeyboardRemove())
+        update.message.reply_text('Скоро...', reply_markup=ReplyKeyboardRemove())
     elif text == 'Список ваших Items':
-        update.message.reply_text('Вы использовали команду /img', reply_markup=ReplyKeyboardRemove())
+        update.message.reply_text('Скоро...', reply_markup=ReplyKeyboardRemove())
     else:
         update.message.reply_text('чаво', reply_markup=ReplyKeyboardRemove())
 
